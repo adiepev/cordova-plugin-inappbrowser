@@ -1078,7 +1078,12 @@
 @end
 
 @implementation CDVInAppBrowserNavigationController : UINavigationController
-
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    CGRect frame = [UIApplication sharedApplication].statusBarFrame;
+    [_bgToolbar setFrame:CGRectMake(frame.origin.x, frame.origin.y, size.width, frame.size.height)];
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+}
 - (void) dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
     if ( self.presentedViewController) {
         [super dismissViewControllerAnimated:flag completion:completion];
